@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Heart Disease Prediction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1d2671, #c33764);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 15px;
+            width: 95%;
+            max-width: 700px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #444;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+            transition: 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #c33764;
+            box-shadow: 0 0 5px rgba(195, 55, 100, 0.4);
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        button {
+            grid-column: span 2;
+            padding: 12px;
+            background: #c33764;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #9c2b50;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+            background: #f4f4f4;
+        }
+
+        @media(max-width: 768px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+            button {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Heart Disease Prediction</h2>
+
+    <form action="/predict" method="POST">
+
+        <div>
+            <label>Age</label>
+            <input type="number" name="Age" required>
+        </div>
+
+        <div>
+            <label>Resting Blood Pressure</label>
+            <input type="number" name="RestingBP" required>
+        </div>
+
+        <div>
+            <label>Cholesterol</label>
+            <input type="number" name="Cholesterol" required>
+        </div>
+
+        <div>
+            <label>Fasting Blood Sugar (0 or 1)</label>
+            <input type="number" name="FastingBS" min="0" max="1" required>
+        </div>
+
+        <div>
+            <label>Max Heart Rate</label>
+            <input type="number" name="MaxHR" required>
+        </div>
+
+        <div>
+            <label>Oldpeak</label>
+            <input type="number" step="0.1" name="Oldpeak" required>
+        </div>
+
+        <div>
+            <label>Sex (1 = Male, 0 = Female)</label>
+            <input type="number" name="Sex_M" min="0" max="1" required>
+        </div>
+
+        <div>
+            <label>Chest Pain Type - ATA</label>
+            <input type="number" name="ChestPainType_ATA" min="0" max="1" required>
+        </div>
+
+        <div>
+            <label>Chest Pain Type - NAP</label>
+            <input type="number" name="ChestPainType_NAP" min="0" max="1" required>
+        </div>
+
+        <div>
+            <label>Chest Pain Type - TA</label>
+            <input type="number" name="ChestPainType_TA" min="0" max="1" required>
+        </div>
+
+        <div>
+            <label>Resting ECG Normal</label>
+            <input type="number" name="RestingECG_Normal" min="0" max="1" required>
+        </div>
+
+        <div>
+            <label>Resting ECG ST</label>
+            <input type="number" name="RestingECG_ST" min="0" max="1" required>
+        </div>
+
+        <div>
+            <label>Exercise Angina (1 = Yes, 0 = No)</label>
+            <input type="number" name="ExerciseAngina_Y" min="0" max="1" required>
+        </div>
+
+        <div>
+            <label>ST Slope Flat</label>
+            <input type="number" name="ST_Slope_Flat" min="0" max="1" required>
+        </div>
+
+        <div>
+            <label>ST Slope Up</label>
+            <input type="number" name="ST_Slope_Up" min="0" max="1" required>
+        </div>
+
+        <button type="submit">Predict Risk</button>
+    </form>
+
+    {% if prediction_text %}
+        <div class="result">
+            {{ prediction_text }}
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
